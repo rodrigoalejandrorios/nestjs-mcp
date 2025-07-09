@@ -11,31 +11,31 @@ export class ToolsExampleService {
     name: 'add',
     params: {
       title: 'Addition Tool',
-      description: 'Suma dos números.',
+      description: 'This tool adds two numbers',
       inputSchema: {
         a: {
           type: 'number',
-          description: 'Primer numero',
+          description: 'First number',
         },
         b: {
           type: 'number',
-          description: 'Segundo numero',
+          description: 'Second number',
         },
       },
     },
   })
   add(a: number, b: number): CalculatorResult {
     /**
-     * Suma dos números.
+     * This tool adds two numbers.
      *
      * Args:
-     *     a (number): Primer número
-     *     b (number): Segundo número
+     *     a (number): First number
+     *     b (number): Second number
      *
      * Returns:
-     *     CalculatorResult: Resultado de la suma
+     *     CalculatorResult: Result of the sum
      */
-    this.logger.log(`Sumando ${a} + ${b}`);
+    this.logger.log(`Adding ${a} + ${b}`);
     const result = a + b;
     return {
       operation: 'addition',
@@ -48,31 +48,31 @@ export class ToolsExampleService {
     name: 'multiply',
     params: {
       title: 'Multiplication Tool',
-      description: 'Multiplica dos números.',
+      description: 'This tool multiplies two numbers.',
       inputSchema: {
         a: {
           type: 'number',
-          description: 'Primer numero',
+          description: 'First number',
         },
         b: {
           type: 'number',
-          description: 'Segundo numero',
+          description: 'Second number',
         },
       },
     },
   })
   multiply(a: number, b: number): CalculatorResult {
     /**
-     * Multiplica dos números.
+     * This function multiplies two numbers.
      *
      * Args:
-     *     a (number): Primer número
-     *     b (number): Segundo número
+     *     a (number): First number
+     *     b (number): Second number
      *
      * Returns:
-     *     CalculatorResult: Resultado de la multiplicación
+     *     CalculatorResult: Result of multiplication
      */
-    this.logger.log(`Multiplicando ${a} × ${b}`);
+    this.logger.log(`Multiplying ${a} × ${b}`);
     const result = a * b;
     return {
       operation: 'multiplication',
@@ -85,29 +85,29 @@ export class ToolsExampleService {
     name: 'divide',
     params: {
       title: 'Divition Tool',
-      description: 'Divide dos números.',
+      description: 'This tool divides two numbers.',
       inputSchema: {
         a: {
           type: 'number',
-          description: 'Primer numero',
+          description: 'First number',
         },
         b: {
           type: 'number',
-          description: 'Segundo numero',
+          description: 'Second number',
         },
       },
     },
   })
   divide(a: number, b: number): CalculatorResult {
     /**
-     * Divide dos números.
+     * This tool divides two numbers.
      *
      * Args:
-     *     a (number): Dividendo
-     *     b (number): Divisor
+     *     a (number): Dividend
+     *     b (number): Divider
      *
      * Returns:
-     *     CalculatorResult: Resultado de la división o error si división por cero
+     *     CalculatorResult: Result of division or error if division by zero
      */
     this.logger.log(`Dividiendo ${a} ÷ ${b}`);
 
@@ -131,31 +131,31 @@ export class ToolsExampleService {
     name: 'subtract',
     params: {
       title: 'Subtraction Tool',
-      description: 'Resta dos números.',
+      description: 'This tool subtracts two numbers.',
       inputSchema: {
         a: {
           type: 'number',
-          description: 'Primer numero',
+          description: 'First number',
         },
         b: {
           type: 'number',
-          description: 'Segundo numero',
+          description: 'Second number',
         },
       },
     },
   })
   subtract(a: number, b: number): CalculatorResult {
     /**
-     * Resta dos números.
+     * This tool subtracts two numbers.
      *
      * Args:
-     *     a (number): Minuendo
-     *     b (number): Sustraendo
+     *     a (number): minuend
+     *     b (number): Subtracting
      *
      * Returns:
-     *     CalculatorResult: Resultado de la resta
+     *     CalculatorResult: Result of the subtraction
      */
-    this.logger.log(`Restando ${a} - ${b}`);
+    this.logger.log(`Subtracting ${a} - ${b}`);
     const result = a - b;
     return {
       operation: 'subtraction',

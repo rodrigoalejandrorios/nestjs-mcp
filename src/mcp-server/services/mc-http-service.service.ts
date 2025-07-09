@@ -273,7 +273,7 @@ export class McpHttpService {
         this.promptsService.constructor,
       ) || [];
 
-    console.log('🎯 Prompt methods encontrados:', promptMethods);
+    console.log('🎯 Prompt methods found:', promptMethods);
 
     for (const methodName of promptMethods) {
       const promptOptions = this.reflector.get(
@@ -282,7 +282,7 @@ export class McpHttpService {
       );
 
       if (promptOptions) {
-        console.log(`🎯 Registrando prompt: ${promptOptions.name}`);
+        console.log(`🎯 Registering prompt: ${promptOptions.name}`);
 
         server.registerPrompt(
           promptOptions.name,
@@ -328,14 +328,13 @@ export class McpHttpService {
     return Object.keys(this.transports).length;
   }
 
-  // Método para limpiar sesiones inactivas (opcional)
   cleanupInactiveSessions() {
     const sessionIds = Object.keys(this.transports);
     for (const sessionId of sessionIds) {
       const transport = this.transports[sessionId];
       if (transport && transport.onclose) {
-        // Aquí podrías implementar lógica para detectar sesiones inactivas
-        // Por ejemplo, basándote en timestamp de última actividad
+        // Here you could implement logic to detect inactive sessions
+        // For example, based on the last activity timestamp
       }
     }
   }

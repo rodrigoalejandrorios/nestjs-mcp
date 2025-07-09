@@ -17,7 +17,7 @@ export class ResourcesExampleService {
   })
   async getPackageJson(): Promise<string> {
     const packagePath = path.join(process.cwd(), 'package.json');
-    this.logger.log('Verificando archivo en:', packagePath);
+    this.logger.log('Checking file in:', packagePath);
 
     try {
       await fs.promises.access(packagePath, fs.constants.F_OK);

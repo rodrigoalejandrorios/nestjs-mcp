@@ -202,7 +202,7 @@ export class McpServerService {
         this.promptsService.constructor,
       ) || [];
 
-    console.log('🎯 Prompt methods encontrados:', promptMethods);
+    console.log('🎯 Prompt methods found:', promptMethods);
 
     for (const methodName of promptMethods) {
       const promptOptions = this.reflector.get(
@@ -211,7 +211,7 @@ export class McpServerService {
       );
 
       if (promptOptions) {
-        console.log(`🎯 Registrando prompt: ${promptOptions.name}`);
+        console.log(`🎯 Registering prompt: ${promptOptions.name}`);
 
         this.server.registerPrompt(
           promptOptions.name,

@@ -13,12 +13,11 @@ async function bootstrap() {
     const isStdioMode =
       transport === 'stdio' || process.argv.includes('--stdio');
 
-    // Configurar el logger basado en el modo
     const loggerOptions: any = isStdioMode
       ? false
       : ['log', 'error', 'warn', 'debug'];
 
-    logger.log('🚀 Iniciando aplicación NestJS...');
+    logger.log('🚀 Starting NestJS application...');
 
     app = await NestFactory.create(AppModule, {
       logger: loggerOptions ?? false,
@@ -35,10 +34,9 @@ async function bootstrap() {
       await mcpStdioServer.start();
 
       if (!isStdioMode) {
-        logger.log('Servidor MCP STDIO iniciado correctamente');
+        logger.log('MCP STDIO server started successfully');
       }
     } else {
-      // Modo HTTP o mixto
       const httpPort = configService.get('PORT', 3000);
 
       app.enableCors({
@@ -47,30 +45,28 @@ async function bootstrap() {
       });
 
       await app.listen(httpPort);
-      logger.log(`Servidor HTTP ejecutándose en puerto ${httpPort}`);
-      logger.log(`API disponible en: http://localhost:${httpPort}`);
+      logger.log(`HTTP server running on port ${httpPort}`);
+      logger.log(`API available at: http://localhost:${httpPort}`);
       logger.log(`MCP HTTP endpoint: http://localhost:${httpPort}/mcp`);
 
       if (mcpMode === 'http') {
         const mcpHttpService = app.get(McpHttpService);
-        logger.log('Servidor MCP HTTP disponible en /mcp endpoint');
+        logger.log('MCP HTTP Server available at /mcp endpoint');
         logger.log(
-          `Sesiones activas: ${mcpHttpService.getActiveSessionsCount()}`,
+          `Active sessions: ${mcpHttpService.getActiveSessionsCount()}`,
         );
       } else if (mcpMode === 'both') {
-        // Iniciar ambos servidores
         const mcpStdioServer = app.get(McpServerService);
         await mcpStdioServer.start();
-        logger.log('Servidor MCP STDIO iniciado correctamente');
+        logger.log('MCP STDIO server started successfully');
 
         const mcpHttpService = app.get(McpHttpService);
-        logger.log('Servidor MCP HTTP disponible en /mcp endpoint');
+        logger.log('MCP HTTP Server available at /mcp endpoint');
         logger.log(
-          `Sesiones activas: ${mcpHttpService.getActiveSessionsCount()}`,
+          `Active sessions: ${mcpHttpService.getActiveSessionsCount()}`,
         );
       }
 
-      // Configurar limpieza de sesiones solo para HTTP
       if (mcpMode === 'http' || mcpMode === 'both') {
         const mcpHttpService = app.get(McpHttpService);
 
@@ -78,7 +74,7 @@ async function bootstrap() {
           () => {
             mcpHttpService.cleanupInactiveSessions();
             logger.debug(
-              `Sesiones MCP HTTP activas: ${mcpHttpService.getActiveSessionsCount()}`,
+              `Active HTTP MCP sessions: ${mcpHttpService.getActiveSessionsCount()}`,
             );
           },
           5 * 60 * 1000,
@@ -88,18 +84,18 @@ async function bootstrap() {
 
     const gracefulShutdown = async (signal: string) => {
       if (!isStdioMode) {
-        logger.log(`Recibida señal ${signal}, cerrando aplicación...`);
+        logger.log(`Received signal ${signal}, closing application...`);
       }
 
       try {
         await app.close();
         if (!isStdioMode) {
-          logger.log('Aplicación cerrada correctamente');
+          logger.log('Successfully closed application');
         }
         process.exit(0);
       } catch (error) {
         if (!isStdioMode) {
-          logger.error('Error durante el cierre:', error);
+          logger.error('Error during shutdown:', error);
         }
         process.exit(1);
       }
@@ -122,9 +118,9 @@ async function bootstrap() {
     });
 
     if (!isStdioMode) {
-      logger.log('✅ Aplicación iniciada completamente');
-      logger.log('>> Configuración actual:');
-      logger.log(`   - Modo MCP: ${mcpMode}`);
+      logger.log('✅ Application started completely');
+      logger.log('>> Current configuration:');
+      logger.log(`   - MCP Mode: ${mcpMode}`);
 
       if (mcpMode !== 'stdio') {
         const httpPort = configService.get('PORT', 3000);
@@ -143,7 +139,7 @@ async function bootstrap() {
       !process.stdout.isTTY;
 
     if (!isStdioMode) {
-      logger.error('❌ Error iniciando aplicación:', error);
+      logger.error('❌ Error starting application:', error);
     }
 
     if (app) {
