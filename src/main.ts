@@ -124,8 +124,8 @@ async function bootstrap() {
 
       if (mcpMode !== 'stdio') {
         const httpPort = configService.get('PORT', 3000);
-        logger.log(`   - Puerto HTTP: ${httpPort}`);
-        logger.log(`   - Endpoints disponibles:`);
+        logger.log(`   - HTTP Port: ${httpPort}`);
+        logger.log(`   - Available endpoints:`);
         logger.log(`     * GET /health - Health check`);
         logger.log(`     * POST /mcp - MCP HTTP requests`);
         logger.log(`     * GET /mcp - MCP HTTP SSE notifications`);
